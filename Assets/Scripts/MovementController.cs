@@ -35,6 +35,15 @@ public class MovementController{
 		}
 	}
 
+	public GameObject ObjectToMove {
+		get {
+			return objectToMove;
+		}
+		set {
+			objectToMove = value;
+		}
+	}
+
 	public float ObjectWidth {
 		get {
 			return objectWidth;
