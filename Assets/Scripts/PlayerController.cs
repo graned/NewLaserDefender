@@ -3,20 +3,17 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 	public float movementSpeed; //THIS VARIABLE WILL BE CONTROLLED FROM THE EDITOR
-	public GameObject laserPrefab;
 	public GameObject spaceShip;
-	public float laserSpeed = 15f;
 	private MovementController movController;
-	private LaserController laserController;
-
+	public GameObject laserPrefab;
 
 	// Use this for initialization
 	void Start () {
 		movController = new MovementController (spaceShip);
 		movController.ObjectToMoveCurrentPosition = spaceShip.transform.position;
 		movController.MovementSpeed = movementSpeed;
+		movController.ObjectToMoveCurrentPosition = this.transform.position;
 		movController.defineWorldBounds (Camera.main);
-		laserController = new LaserController (laserPrefab, laserSpeed);
 	}
 			
 	// Update is called once per frame
@@ -24,24 +21,26 @@ public class PlayerController : MonoBehaviour {
 		movController.arrowControl ();
 		KeyPressed ();
 	}	
-
 	private void KeyPressed(){
 		if(Input.GetKeyDown(KeyCode.Space)){
 			//SPAWN LASER BEAM & FIRE LASER!
-			spawnFireLaser(transform);
+			Debug.Log("FIRE THE \"LASER\"");
+			spawnLaser(transform);
 		}
 	}
 
 	/*
 	 * THIS METHOD SPAWNS LASER BEAM
 	 */
-	private void spawnFireLaser(Transform trans){
-		foreach (Transform t in trans) {
+	private void spawnLaser(Transform transParent){
+		foreach(Transform t in transParent){
 			//this line creates a new isntance of the game object enemyPrefab, which is initialized from the UI
-			GameObject laser = Instantiate (laserPrefab, t.position, Quaternion.identity) as GameObject;
+			Vector3 position = t.position;
+			position.z -= 5;
+			GameObject laser = Instantiate (laserPrefab, position, Quaternion.identity) as GameObject;
 			//assignes the new instance created a parent
 			laser.transform.parent = t;
-			laserController.fireLaser (laser);
 		}
 	}
+	
 }

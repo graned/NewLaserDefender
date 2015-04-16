@@ -217,7 +217,7 @@ Transform:
   m_PrefabInternal: {fileID: 1392851796}
   m_GameObject: {fileID: 443988945}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: .414999992, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1786643646}
@@ -384,7 +384,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 452618, guid: 315223f24c3a31b449ca426c2ad64140, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: .414999992
       objectReference: {fileID: 0}
     - target: {fileID: 452618, guid: 315223f24c3a31b449ca426c2ad64140, type: 2}
       propertyPath: m_LocalPosition.z
@@ -540,8 +540,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 15
-  laserPrefab: {fileID: 0}
   spaceShip: {fileID: 1786643643}
+  laserPrefab: {fileID: 143880, guid: 5d3411fdc82de4f48a09a2a80284b24b, type: 2}
 --- !u!212 &1786643645
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -745,6 +745,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11441436, guid: 6e089850f996347528275546cac03a53, type: 2}
+      propertyPath: laserPrefab
+      value: 
+      objectReference: {fileID: 143880, guid: 5d3411fdc82de4f48a09a2a80284b24b, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e089850f996347528275546cac03a53, type: 2}
   m_RootGameObject: {fileID: 1786643643}
