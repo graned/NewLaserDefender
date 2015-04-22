@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour {
 	public GameObject spaceShip;
 	private MovementController movController;
 	public GameObject laserPrefab;
-
+	//public GameObject laserContainer;
+	public float repeatRate = 0.2f;
 	// Use this for initialization
 	void Start () {
 		movController = new MovementController (spaceShip);
@@ -24,23 +25,32 @@ public class PlayerController : MonoBehaviour {
 	private void KeyPressed(){
 		if(Input.GetKeyDown(KeyCode.Space)){
 			//SPAWN LASER BEAM & FIRE LASER!
-			Debug.Log("FIRE THE \"LASER\"");
-			spawnLaser(transform);
+			//Debug.Log("FIRE THE \"LASER\"");
+			InvokeRepeating("fireLaser",0.0001f,repeatRate);
+			//spawnLaser(transform);
 		}
+		if (Input.GetKeyUp (KeyCode.Space)) {
+			CancelInvoke("fireLaser");
+		}
+	}
+	public void fireLaser(){
+		spawnLaser(transform);
 	}
 
 	/*
 	 * THIS METHOD SPAWNS LASER BEAM
 	 */
 	private void spawnLaser(Transform transParent){
-		foreach(Transform t in transParent){
+		//foreach(Transform t in transParent){
 			//this line creates a new isntance of the game object enemyPrefab, which is initialized from the UI
-			Vector3 position = t.position;
-			position.z -= 5;
-			GameObject laser = Instantiate (laserPrefab, position, Quaternion.identity) as GameObject;
-			//assignes the new instance created a parent
-			laser.transform.parent = t;
-		}
+		Vector3 position = transParent.transform.position;
+		position.z -= 5;
+		//GameObject laser = Instantiate (laserPrefab, position, Quaternion.identity) as GameObject;
+		Instantiate (laserPrefab, position, Quaternion.identity);
+		//assignes the new instance created a parent
+		//laser.transform.parent = laserContainer.transform;
+
+		//}
 	}
 	
 }
