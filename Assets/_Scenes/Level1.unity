@@ -339,6 +339,10 @@ Prefab:
       propertyPath: m_Name
       value: Position
       objectReference: {fileID: 0}
+    - target: {fileID: 11452618, guid: 315223f24c3a31b449ca426c2ad64140, type: 2}
+      propertyPath: radius
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 315223f24c3a31b449ca426c2ad64140, type: 2}
   m_RootGameObject: {fileID: 1639556328}
@@ -563,7 +567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03990c728cf4547179d05b210f6e8732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 15
+  movementSpeed: 20
   spaceShip: {fileID: 1786643643}
   laserPrefab: {fileID: 143880, guid: 5d3411fdc82de4f48a09a2a80284b24b, type: 2}
   repeatRate: .200000003
@@ -777,6 +781,10 @@ Prefab:
       propertyPath: laserContainer
       value: 
       objectReference: {fileID: 1055042468}
+    - target: {fileID: 11441436, guid: 6e089850f996347528275546cac03a53, type: 2}
+      propertyPath: movementSpeed
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e089850f996347528275546cac03a53, type: 2}
   m_RootGameObject: {fileID: 1786643643}

@@ -49,12 +49,16 @@ public class EnemySpawner : MonoBehaviour {
 			enemySpaceShip = enemy.GetComponent<EnemySpaceShip>();
 
 			enemySpaceShip.EnemyPrefab = enemySpaceShip.gameObject;
-			enemySpaceShip.Width = width;
-			enemySpaceShip.Height = height;
-			enemySpaceShip.movementSpeed = movementSpeed;
+			//enemySpaceShip.Width = width;
+			//enemySpaceShip.Height = height;
+			enemySpaceShip.movementSpeed = movementSpeed*-1;
 			//assignes the new instance created a parent
 			enemy.transform.parent = t;
-
+			Position p = t.GetComponent<Position>();
+			enemySpaceShip.Radius = p.radius;
+			enemySpaceShip.MovBoundriesX = t.transform.position.x;
+			enemySpaceShip.MovBoundriesY = t.transform.position.y;
+			//break;
 			//TEMPORARY FOR LEVEL 1
 			//enemySpaceShip.changeSprite(1);
 			//changeSprite(enemy,spriteToLoad[Random.Range(0,4)]);

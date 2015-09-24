@@ -124,7 +124,7 @@ public class MovementController{
 		}
 		Vector3 cameraVectorLower = new Vector3 (0, 0, distance);
 		Vector3 cameraVectorUpper = new Vector3 (1, 1, distance);
-		//In order to calculate the space ship bounderies i need to divide the width and height of the game object
+		//In order to calculate the object bounderies i need to divide the width and height of the game object
 		//by 2, this will give me the amount of pixels from the game object origin.
 		cameraMinBoundX = camera.ViewportToWorldPoint(cameraVectorLower).x + halfObjectWidth;
 		cameraMaxBoundX = camera.ViewportToWorldPoint(cameraVectorUpper).x - halfObjectWidth;

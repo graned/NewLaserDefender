@@ -7,6 +7,9 @@ public class EnemySpaceShip : MonoBehaviour {
 	private float width, height;
 	private MovementController movController;
 	public float movementSpeed;
+	private float radius;
+	private float movBoundriesX;
+	private float movBoundriesY;
 
 	/**
 	 * *********************************************************************
@@ -18,6 +21,33 @@ public class EnemySpaceShip : MonoBehaviour {
 		}
 		set {
 			movController = value;
+		}
+	}
+
+	public float MovBoundriesX {
+		get {
+			return movBoundriesX;
+		}
+		set {
+			movBoundriesX = value;
+		}
+	}
+
+	public float MovBoundriesY {
+		get {
+			return movBoundriesY;
+		}
+		set {
+			movBoundriesY = value;
+		}
+	}
+
+	public float Radius {
+		get {
+			return radius;
+		}
+		set {
+			radius = value;
 		}
 	}
 
@@ -70,6 +100,11 @@ public class EnemySpaceShip : MonoBehaviour {
 	 * *****************************************************************************
 	 */
 
+	//THIS METHOD DRAWS A SPHERE IN A POSITION
+	void OnDrawGizmos(){
+		//vector3 = transform.position;
+		Gizmos.DrawWireSphere (transform.position, radius);
+	}
 	// Use this for initialization
 	void Start () {
 		//THIS LINE LOADS ALL SPRITES LOCATED IN THE RESOURCES/ENEMY FILE
@@ -78,9 +113,10 @@ public class EnemySpaceShip : MonoBehaviour {
 		movController = new MovementController (enemyPrefab);
 		movController.MovementSpeed = this.movementSpeed;
 		movController.ObjectToMoveCurrentPosition = this.transform.position;
-		movController.ObjectWidth = this.width;
-		movController.ObjectHeight = this.height;
 		movController.defineWorldBounds (Camera.main);
+
+		movBoundriesX = this.transform.position.x;
+		movBoundriesY = this.transform.position.y;
 	}
 
 	//THIS METHOD CHANGES THE ENEMY SPRITE WHEN SPAWING!
@@ -97,11 +133,27 @@ public class EnemySpaceShip : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (this.transform.position.x <= movController.CameraMinBoundX 
-		    ||this.transform.position.x >= movController.CameraMaxBoundX){
+		//Debug.Log ("enemy parent: " +this.transform.parent);
+
+		//Debug.Log("movController.CameraMinBoundX:" +Mathf.Round(movController.CameraMinBoundX));
+		//Debug.Log("movController.CameraMaxBoundX:" +Mathf.Round(movController.CameraMaxBoundX));
+		if (Mathf.Round(this.transform.position.x) <= Mathf.Round(movController.CameraMinBoundX) &&
+		    movController.MovementSpeed < 0){
+		    	//Debug.Log("movController.CameraMinBoundX:" +Mathf.Round(movController.CameraMinBoundX));
+        		//Debug.Log("movController.CameraMaxBoundX:" +Mathf.Round(movController.CameraMaxBoundX));
+			    //Debug.Log("this.transform.position.x:" +Mathf.Round(this.transform.position.x));
+				movController.MovementSpeed *= -1;
+		}else if(Mathf.Round(this.transform.position.x) >= Mathf.Round(movController.CameraMaxBoundX) 
+		         && movController.MovementSpeed >= 0){
 			movController.MovementSpeed *= -1;
+
 		}
-		Debug.Log(movController.MovementSpeed);
+
+		//movBoundriesX -= this.transform.position.x;
+		/*Debug.Log ("movBoundriesX: " + movBoundriesX);
+		Debug.Log("movController.CameraMinBoundX:" + Mathf.Round(movController.CameraMinBoundX));
+		Debug.Log("movController.CameraMaxBoundX:" +Mathf.Round(movController.CameraMaxBoundX));
+		Debug.Log("this.transform.position.x:" +Mathf.Round(this.transform.position.x));*/
 		movController.moveObject (movController.MovementSpeed, 0f);
 	}
 }
