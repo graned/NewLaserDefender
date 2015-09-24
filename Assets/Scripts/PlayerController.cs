@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		movController = new MovementController (spaceShip);
-		movController.ObjectToMoveCurrentPosition = spaceShip.transform.position;
 		movController.MovementSpeed = movementSpeed;
 		movController.ObjectToMoveCurrentPosition = this.transform.position;
 		movController.defineWorldBounds (Camera.main);

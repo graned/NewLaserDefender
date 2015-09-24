@@ -160,7 +160,7 @@ public class MovementController{
 		                                cameraMaxBoundX) ;
 		objectToMoveCurrentPosition.y = Mathf.Clamp((objectToMoveCurrentPosition.y + movementY * Time.deltaTime),
 		                                cameraMinBoundY,
-		                                cameraMaxBoundY);;
+		                                cameraMaxBoundY);
 		objectToMove.transform.position = objectToMoveCurrentPosition;	
 	}
 }
