@@ -19,7 +19,7 @@ public class LaserController : MonoBehaviour{
 	
 	// FIRES THE LASER!
 	public void fireLaser(){
-		Debug.Log("FIRE THE \"LASER\"");
+		//Debug.Log("FIRE THE \"LASER\"");
 		//movController.moveObject (0f, laserSpeed);
 		this.rigidbody2D.velocity = new Vector3(0f,laserSpeed,0f);
 	}

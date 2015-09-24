@@ -7,8 +7,8 @@ public class Shredder : MonoBehaviour {
 	 */
 	void OnTriggerEnter2D(Collider2D collider){
 		//THIS METHOD CALL WILL DESTROY THE OBJECTS THAT COLLIDE.
-		Debug.Log ("laser explotion");
-		collider.gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Player/laserExplotion.png");
-		//Destroy (collider.gameObject);
+		//Debug.Log ("laser explotion");
+		collider.gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.LoadAll<Sprite> ("Player")[1];
+		Destroy (collider.gameObject);
 	}
 }
