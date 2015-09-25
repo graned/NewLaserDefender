@@ -2,18 +2,20 @@
 using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
-	//private Sprite[] spriteToLoad;
+	private Sprite[] spriteToLoad;
 	public GameObject enemyPrefab;
 	public GameObject enemyFormation;
 	public float width = 10f, height = 5f;
 	//private MovementController movController;
 	public float movementSpeed = 15f;
+	public int enemyLevel = 1;
+
 
 	private EnemySpaceShip enemySpaceShip;
 	// Use this for initialization
 	void Start () {
 		//THIS LINE LOADS ALL SPRITES LOCATED IN THE RESOURCES/ENEMY FILE
-		//spriteToLoad = Resources.LoadAll<Sprite> ("Enemy");
+		spriteToLoad = Resources.LoadAll<Sprite> ("Enemy");
 		//BY CALLING THE TRANSFORM VARIABLE OF THE ENEMYSPAWNER OBJECT, IT RETRIEVES ALL THE CHILDS IN THE ENEMYSPAWNER
 		//IN THIS CASE ALL THE "POSITION" INSTANCES
 		spawnEnemies (transform);
@@ -44,31 +46,29 @@ public class EnemySpawner : MonoBehaviour {
 		foreach (Transform t in trans) {
 			//this line creates a new isntance of the game object enemyPrefab, which is initialized from the UI
 			GameObject enemy = Instantiate (this.enemyPrefab, t.position, Quaternion.identity) as GameObject;//enemySpaceShip.createNewEnemy(t);
-
-			// = (EnemySpaceShip)enemy;
+			//THIS LINE GETS THE INSTANCE OF THE ENEMY SPACESHIP CREATED
 			enemySpaceShip = enemy.GetComponent<EnemySpaceShip>();
-
+			//WE SET THE PREFAB GAME OBJECT THAT WILL BE USED
 			enemySpaceShip.EnemyPrefab = enemySpaceShip.gameObject;
-			//enemySpaceShip.Width = width;
-			//enemySpaceShip.Height = height;
-			enemySpaceShip.movementSpeed = movementSpeed*-1;
+			//setting the enemy space ship movement speed
+			enemySpaceShip.movementSpeed = movementSpeed;
 			//assignes the new instance created a parent
 			enemy.transform.parent = t;
+			//gets the position game object were the spaceship si being created
 			Position p = t.GetComponent<Position>();
+			//set the radius, so we can draw the gizmos on each enemy space ship
 			enemySpaceShip.Radius = p.radius;
-			enemySpaceShip.MovBoundriesX = t.transform.position.x;
-			enemySpaceShip.MovBoundriesY = t.transform.position.y;
-			//break;
 			//TEMPORARY FOR LEVEL 1
-			//enemySpaceShip.changeSprite(1);
-			//changeSprite(enemy,spriteToLoad[Random.Range(0,4)]);
+			//Debug.Log(enemySpaceShip.SpriteToLoad);
+			//enemySpaceShip.changeSprite(4);
+			changeSprite(enemySpaceShip.gameObject,spriteToLoad[Random.Range(0,enemyLevel)]);
 		}
 	}
-	/*
+
 	//THIS METHOD CHANGES THE ENEMY SPRITE WHEN SPAWING!
 	private void changeSprite(GameObject enemySpaceShip, Sprite sprite){
 		enemySpaceShip.GetComponent<SpriteRenderer> ().sprite = sprite;
-	}
+	}/*
 	// Update is called once per frame
 	void Update () {
 		if (this.transform.position.x == movController.CameraMinBoundX 

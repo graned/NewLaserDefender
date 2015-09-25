@@ -2,14 +2,12 @@
 using System.Collections;
 
 public class EnemySpaceShip : MonoBehaviour {	
-	private Sprite[] spriteToLoad;
 	private GameObject enemyPrefab;
 	private float width, height;
 	private MovementController movController;
 	public float movementSpeed;
 	private float radius;
-	private float movBoundriesX;
-	private float movBoundriesY;
+	private string spaceShipName;
 
 	/**
 	 * *********************************************************************
@@ -24,21 +22,12 @@ public class EnemySpaceShip : MonoBehaviour {
 		}
 	}
 
-	public float MovBoundriesX {
+	public string SpaceShipName {
 		get {
-			return movBoundriesX;
+			return spaceShipName;
 		}
 		set {
-			movBoundriesX = value;
-		}
-	}
-
-	public float MovBoundriesY {
-		get {
-			return movBoundriesY;
-		}
-		set {
-			movBoundriesY = value;
+			spaceShipName = value;
 		}
 	}
 
@@ -78,15 +67,6 @@ public class EnemySpaceShip : MonoBehaviour {
 		}
 	}
 
-	public Sprite[] SpriteToLoad {
-		get {
-			return spriteToLoad;
-		}
-		set {
-			spriteToLoad = value;
-		}
-	}
-
 	public GameObject EnemyPrefab {
 		get {
 			return enemyPrefab;
@@ -107,45 +87,46 @@ public class EnemySpaceShip : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		//THIS LINE LOADS ALL SPRITES LOCATED IN THE RESOURCES/ENEMY FILE
-		spriteToLoad = Resources.LoadAll<Sprite> ("Enemy");
 		//MOVEMENT CONTROLLER
+		if (enemyPrefab == null) {
+			enemyPrefab = this.gameObject;//GameObject.Instantiate(Resources.LoadAssetAtPath("./Entities/Enemies/Enemy", typeof(GameObject)) ) as GameObject;
+		}
 		movController = new MovementController (enemyPrefab);
 		movController.MovementSpeed = this.movementSpeed;
 		movController.ObjectToMoveCurrentPosition = this.transform.position;
 		movController.defineWorldBounds (Camera.main);
+		//Debug.Log (spriteToLoad.Length);
+		//enemyPrefab.GetComponent<SpriteRenderer> ().sprite = spriteToLoad[Random.Range(0,4)];
 
-		movBoundriesX = this.transform.position.x;
-		movBoundriesY = this.transform.position.y;
-	}
+		//TODO AGREGATE THE COLLITION THAT CORRESPONDS TO THE FIGURE! THIS MIGHT HAVE TO BE DONE IN ENEMY SPAWNER CLASS
 
-	//THIS METHOD CHANGES THE ENEMY SPRITE WHEN SPAWING!
-	public void changeSprite(int levelEnemies){
-		this.GetComponent<SpriteRenderer> ().sprite = spriteToLoad[Random.Range(0,levelEnemies)];
 	}
 
 	//CREATES A NEW ENEMY
 	/*public static GameObject createNewEnemy(Transform t){
 		return Instantiate (this.enemyPrefab, t.position, Quaternion.identity) as GameObject;
 	}*/
+	//THIS METHOD CHANGES THE ENEMY SPRITE WHEN SPAWING!
+	private void changeSprite(GameObject enemySpaceShip, Sprite sprite){
+		enemySpaceShip.GetComponent<SpriteRenderer> ().sprite = sprite;
+	}
 
 	//TODO DETECT COLLISION OF LASER!
 
 	// Update is called once per frame
+	private float changeMovementOrientation(float movementOrientation){
+		return movementOrientation * -1;
+	}
 	void Update () {
-		//Debug.Log ("enemy parent: " +this.transform.parent);
-
-		//Debug.Log("movController.CameraMinBoundX:" +Mathf.Round(movController.CameraMinBoundX));
-		//Debug.Log("movController.CameraMaxBoundX:" +Mathf.Round(movController.CameraMaxBoundX));
 		if (Mathf.Round(this.transform.position.x) <= Mathf.Round(movController.CameraMinBoundX) &&
 		    movController.MovementSpeed < 0){
 		    	//Debug.Log("movController.CameraMinBoundX:" +Mathf.Round(movController.CameraMinBoundX));
         		//Debug.Log("movController.CameraMaxBoundX:" +Mathf.Round(movController.CameraMaxBoundX));
 			    //Debug.Log("this.transform.position.x:" +Mathf.Round(this.transform.position.x));
-				movController.MovementSpeed *= -1;
+				movController.MovementSpeed = changeMovementOrientation(movController.MovementSpeed);
 		}else if(Mathf.Round(this.transform.position.x) >= Mathf.Round(movController.CameraMaxBoundX) 
 		         && movController.MovementSpeed >= 0){
-			movController.MovementSpeed *= -1;
+			movController.MovementSpeed = changeMovementOrientation(movController.MovementSpeed);
 
 		}
 

@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour {
 		Vector3 position = transParent.transform.position;
 		position.z -= 5;
 		//GameObject laser = Instantiate (laserPrefab, position, Quaternion.identity) as GameObject;
+		//NO NEED TO ESTABLISH A PARENT FOR THE BEAM!.
 		Instantiate (laserPrefab, position, Quaternion.identity);
 		//assignes the new instance created a parent
 		//laser.transform.parent = laserContainer.transform;
