@@ -4,6 +4,7 @@ using System.Collections;
 public class LaserController : MonoBehaviour{
 	private MovementController movController;
 	public float laserSpeed ;
+	public float laserDamage = 100f;
 	
 	public void Start(){
 		movController = new MovementController (this.gameObject);
@@ -12,11 +13,14 @@ public class LaserController : MonoBehaviour{
 		movController.defineWorldBounds (Camera.main);
 		fireLaser ();
 	}	
-
-	void Update(){
-		//fireLaser ();
+	//this method will capture the laser behaviour
+	public void hit(){
+		Destroy (this.gameObject);
 	}
-	
+	//return the damage 
+	public float getLaserDamage(){
+		return laserDamage;
+	}
 	// FIRES THE LASER!
 	public void fireLaser(){
 		//Debug.Log("FIRE THE \"LASER\"");
@@ -27,7 +31,11 @@ public class LaserController : MonoBehaviour{
 	 * THIS METHOD CAN BE USED TO CHANGE THE SPRITES TO THE EXPLITION
 	 */
 	void OnTriggerEnter2D(Collider2D collider){
+		//Debug.Log ("LASER HIT BITCH!");
+		//this.rigidbody2D.velocity = new Vector3(0f,0f,0f);
+		//this.gameObject.GetComponent<SpriteRenderer> ().sprite = Resources.LoadAll<Sprite> ("Player")[1];	
 
 	}
+
 
 }

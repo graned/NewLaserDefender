@@ -1,14 +1,73 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &124886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 424886}
+  - 60: {fileID: 6024886}
+  m_Layer: 0
+  m_Name: enemyCollider1
+  m_TagString: collider1
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &424886
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124886}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .0333929062, y: .0689716339, z: 0}
+  m_LocalScale: {x: .566007555, y: .543811202, z: .887855172}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!60 &6024886
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124886}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Poly:
+    m_Paths:
+    - - {x: -.224024534, y: .499450773}
+      - {x: -.201753333, y: .332027197}
+      - {x: -.0650461242, y: .326300532}
+      - {x: .112631477, y: .334953219}
+      - {x: .153532773, y: .504483879}
+      - {x: .474001825, y: .635930538}
+      - {x: .735798776, y: .186593115}
+      - {x: .370130211, y: -.850206494}
+      - {x: .135874867, y: -.778997183}
+      - {x: .176203296, y: -.396504998}
+      - {x: .219598264, y: -.291470587}
+      - {x: .162479669, y: -.400301725}
+      - {x: -.0460503958, y: -.407886416}
+      - {x: -.249662191, y: -.402229041}
+      - {x: -.306684762, y: -.279302627}
+      - {x: -.250396818, y: -.405844241}
+      - {x: -.22069177, y: -.788296938}
+      - {x: -.469065011, y: -.8502056}
+      - {x: -.836165726, y: .193379}
+      - {x: -.555320859, y: .669419825}
 --- !u!1001 &100100000
 Prefab:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 0}
+  m_RootGameObject: {fileID: 124886}
   m_IsPrefabParent: 1
   m_IsExploded: 1

@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &135586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 435586}
+  - 60: {fileID: 6035586}
+  - 114: {fileID: 11447694}
+  m_Layer: 0
+  m_Name: enemyCollider1
+  m_TagString: collider1
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &435586
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 135586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: .566007555, y: .543811202, z: .887855172}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!60 &6035586
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 135586}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Poly:
+    m_Paths:
+    - - {x: -.189791992, y: .606336892}
+      - {x: -.160674825, y: .424662143}
+      - {x: .0171105079, y: .447440684}
+      - {x: .146863177, y: .420463711}
+      - {x: .180918798, y: .618495345}
+      - {x: .501387596, y: .757069707}
+      - {x: .790569603, y: .279228806}
+      - {x: .397760421, y: -.759861946}
+      - {x: .174873993, y: -.674529374}
+      - {x: .240265474, y: -.505554616}
+      - {x: .274370939, y: -.334226459}
+      - {x: .276352912, y: -.293414563}
+      - {x: .00872110017, y: -.279621869}
+      - {x: -.188044578, y: -.28821668}
+      - {x: -.288589865, y: -.298135549}
+      - {x: -.268491566, y: -.424678057}
+      - {x: -.168241858, y: -.688407898}
+      - {x: -.462218314, y: -.786072433}
+      - {x: -.836165726, y: .193379}
+      - {x: -.527935028, y: .762055397}
+--- !u!114 &11447694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 135586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6d1fe7f6d0f254faec482d2ad7282d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 135586}
+  m_IsPrefabParent: 1
+  m_IsExploded: 1

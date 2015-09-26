@@ -8,9 +8,8 @@ public class EnemySpawner : MonoBehaviour {
 	public float width = 10f, height = 5f;
 	//private MovementController movController;
 	public float movementSpeed = 15f;
-	public int enemyLevel = 1;
-
-
+	public float enemyLevel = 1;
+	
 	private EnemySpaceShip enemySpaceShip;
 	// Use this for initialization
 	void Start () {
@@ -27,6 +26,7 @@ public class EnemySpawner : MonoBehaviour {
 		movController.ObjectHeight = this.height;
 		movController.defineWorldBounds (Camera.main);*/
 	}
+
 
 	void OnDrawGizmos(){
 		float xmin, xmax, ymin, ymax;
@@ -49,7 +49,7 @@ public class EnemySpawner : MonoBehaviour {
 			//THIS LINE GETS THE INSTANCE OF THE ENEMY SPACESHIP CREATED
 			enemySpaceShip = enemy.GetComponent<EnemySpaceShip>();
 			//WE SET THE PREFAB GAME OBJECT THAT WILL BE USED
-			enemySpaceShip.EnemyPrefab = enemySpaceShip.gameObject;
+			//enemySpaceShip.EnemyPrefab = enemySpaceShip.gameObject;
 			//setting the enemy space ship movement speed
 			enemySpaceShip.movementSpeed = movementSpeed;
 			//assignes the new instance created a parent
@@ -61,10 +61,17 @@ public class EnemySpawner : MonoBehaviour {
 			//TEMPORARY FOR LEVEL 1
 			//Debug.Log(enemySpaceShip.SpriteToLoad);
 			//enemySpaceShip.changeSprite(4);
-			changeSprite(enemySpaceShip.gameObject,spriteToLoad[Random.Range(0,enemyLevel)]);
+			float spriteIndex = Random.Range(1.0f,enemyLevel * 5.0f);
+			//this helps determining which enemy is, also helps on the collider assignation, not max inclusive for int
+			enemySpaceShip.EnemyType = getSpaceshipType((int)spriteIndex); 
+			//this line changes the enemy sprite to the one that belongs to the current level
+			changeSprite(enemySpaceShip.gameObject,spriteToLoad[(int)spriteIndex - 1]);
 		}
 	}
 
+	private int getSpaceshipType(int type){
+		return type <= 5 ? type : getSpaceshipType (type - 5);
+	}
 	//THIS METHOD CHANGES THE ENEMY SPRITE WHEN SPAWING!
 	private void changeSprite(GameObject enemySpaceShip, Sprite sprite){
 		enemySpaceShip.GetComponent<SpriteRenderer> ().sprite = sprite;
