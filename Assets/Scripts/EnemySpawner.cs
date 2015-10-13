@@ -66,6 +66,8 @@ public class EnemySpawner : MonoBehaviour {
 			enemySpaceShip.EnemyType = getSpaceshipType((int)spriteIndex); 
 			//this line changes the enemy sprite to the one that belongs to the current level
 			changeSprite(enemySpaceShip.gameObject,spriteToLoad[(int)spriteIndex - 1]);
+			//enemySpaceShip.fireRepeatRate = 0.02f * enemyLevel;
+			//break;
 		}
 	}
 

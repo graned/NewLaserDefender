@@ -5,6 +5,16 @@ public class LaserController : MonoBehaviour{
 	private MovementController movController;
 	public float laserSpeed ;
 	public float laserDamage = 100f;
+	public string name;
+
+	public string Name {
+		get {
+			return name;
+		}
+		set {
+			name = value;
+		}
+	}
 	
 	public void Start(){
 		movController = new MovementController (this.gameObject);

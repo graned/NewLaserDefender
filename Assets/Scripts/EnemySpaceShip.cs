@@ -11,6 +11,8 @@ public class EnemySpaceShip : MonoBehaviour {
 	private GameObject enemyCollider;
 	private int enemyType;
 	private Transform parentTransform;
+	private GameObject laserObject;
+	public float fireRepeatRate;
 	/**
 	 * *********************************************************************
 	 * PROPERTIES
@@ -23,6 +25,16 @@ public class EnemySpaceShip : MonoBehaviour {
 			parentTransform = value;
 		}
 	}
+
+	public float FireRepeatRate {
+		get {
+			return fireRepeatRate;
+		}
+		set {
+			fireRepeatRate = value;
+		}
+	}
+
 	public MovementController MovController {
 		get {
 			return movController;
@@ -118,6 +130,7 @@ public class EnemySpaceShip : MonoBehaviour {
 		movController.defineWorldBounds (Camera.main);
 		//adds a collider to the current spaceship game object created
 		addCustomCollider (enemyType);
+
 	}
 
 	private void addCustomCollider(int enemyType){
@@ -151,9 +164,39 @@ public class EnemySpaceShip : MonoBehaviour {
 
 		}
 		movController.moveObject (movController.MovementSpeed, 0f);
+		fireLaser ();
 	}
 
+	public void fireLaser(){
+		spawnLaser (transform);
+	}
 	public void destroyEnemySpaceShip(){
 		Destroy (gameObject);
+	}
+
+
+	//PROPOSED: CREATE A MASTER CLASS CALLED SPACESHIP AND MAKE ENEMY AND PLAYER INHERIT FROM IT
+	/*
+	 * THIS METHOD SPAWNS LASER BEAM
+	 */
+	private void spawnLaser(Transform transParent){
+
+		//foreach(Transform t in transParent){
+		//this line creates a new isntance of the game object enemyPrefab, which is initialized from the UI
+		Vector3 position = transParent.transform.position;
+		position.z -= 5;
+		//GameObject laser = Instantiate (laserPrefab, position, Quaternion.identity) as GameObject;
+		//NO NEED TO ESTABLISH A PARENT FOR THE BEAM!.
+		//adds laser object to the spaceship
+		laserObject = Instantiate (Resources.Load ("Enemy/Prefab/enemyLaserBeam"),position, Quaternion.identity) as GameObject;
+		LaserController laser = laserObject.GetComponent<LaserController> ();
+		laser.laserSpeed = laser.laserSpeed * -1;
+		laser.Name = "ENEMY_LASER";
+
+		//Instantiate (laserObject, position, Quaternion.identity);
+		//assignes the new instance created a parent
+		//laser.transform.parent = laserContainer.transform;
+		
+		//}
 	}
 }

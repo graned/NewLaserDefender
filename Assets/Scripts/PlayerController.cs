@@ -49,7 +49,8 @@ public class PlayerController : MonoBehaviour {
 		Instantiate (laserPrefab, position, Quaternion.identity);
 		//assignes the new instance created a parent
 		//laser.transform.parent = laserContainer.transform;
-
+		LaserController laser = laserPrefab.GetComponent<LaserController> ();
+		laser.Name = "PLAYER_LASER";
 		//}
 	}
 	
