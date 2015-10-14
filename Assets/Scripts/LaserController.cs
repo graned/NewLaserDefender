@@ -5,14 +5,14 @@ public class LaserController : MonoBehaviour{
 	private MovementController movController;
 	public float laserSpeed ;
 	public float laserDamage = 100f;
-	public string name;
+	private string laserOrign;
 
-	public string Name {
+	public string LaserOrign {
 		get {
-			return name;
+			return laserOrign;
 		}
 		set {
-			name = value;
+			laserOrign = value;
 		}
 	}
 	

@@ -13,6 +13,8 @@ public class EnemySpaceShip : MonoBehaviour {
 	private Transform parentTransform;
 	private GameObject laserObject;
 	public float fireRepeatRate;
+	private float health;
+	private float shotsPerSecond;
 	/**
 	 * *********************************************************************
 	 * PROPERTIES
@@ -23,6 +25,24 @@ public class EnemySpaceShip : MonoBehaviour {
 		}
 		set {
 			parentTransform = value;
+		}
+	}
+
+	public float ShotsPerSecond {
+		get {
+			return shotsPerSecond;
+		}
+		set {
+			shotsPerSecond = value;
+		}
+	}
+
+	public float Health {
+		get {
+			return health;
+		}
+		set {
+			health = value;
 		}
 	}
 
@@ -168,7 +188,10 @@ public class EnemySpaceShip : MonoBehaviour {
 	}
 
 	public void fireLaser(){
-		spawnLaser (transform);
+		float fireProbability = Time.deltaTime * shotsPerSecond;
+		if (Random.value < fireProbability) {
+			spawnLaser (transform);
+		}
 	}
 	public void destroyEnemySpaceShip(){
 		Destroy (gameObject);
@@ -184,14 +207,14 @@ public class EnemySpaceShip : MonoBehaviour {
 		//foreach(Transform t in transParent){
 		//this line creates a new isntance of the game object enemyPrefab, which is initialized from the UI
 		Vector3 position = transParent.transform.position;
-		position.z -= 5;
+		position.z = 1;
 		//GameObject laser = Instantiate (laserPrefab, position, Quaternion.identity) as GameObject;
 		//NO NEED TO ESTABLISH A PARENT FOR THE BEAM!.
 		//adds laser object to the spaceship
 		laserObject = Instantiate (Resources.Load ("Enemy/Prefab/enemyLaserBeam"),position, Quaternion.identity) as GameObject;
 		LaserController laser = laserObject.GetComponent<LaserController> ();
 		laser.laserSpeed = laser.laserSpeed * -1;
-		laser.Name = "ENEMY_LASER";
+		laser.LaserOrign = "ENEMY_LASER";
 
 		//Instantiate (laserObject, position, Quaternion.identity);
 		//assignes the new instance created a parent

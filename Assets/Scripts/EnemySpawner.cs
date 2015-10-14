@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class EnemySpawner : MonoBehaviour {
 	private Sprite[] spriteToLoad;
 	public GameObject enemyPrefab;
@@ -67,6 +68,7 @@ public class EnemySpawner : MonoBehaviour {
 			//this line changes the enemy sprite to the one that belongs to the current level
 			changeSprite(enemySpaceShip.gameObject,spriteToLoad[(int)spriteIndex - 1]);
 			//enemySpaceShip.fireRepeatRate = 0.02f * enemyLevel;
+			enemySpaceShip.ShotsPerSecond = enemyLevel;
 			//break;
 		}
 	}
