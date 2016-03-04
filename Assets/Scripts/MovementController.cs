@@ -116,8 +116,8 @@ public class MovementController{
 		//IF WE DEFINE THE OBJECT's WIDTH AND HEIGHT THEN TAKE THOSE VALUES, OTHERWISE TAKE THE VALES FROM THE 
 		//RENDERED OBJECT
 		if (objectHeight == 0f && objectWidth == 0f) {
-			halfObjectWidth = objectToMove.renderer.bounds.size.x / 2;
-			halfObjectHeight = objectToMove.renderer.bounds.size.y / 2;
+			halfObjectWidth = objectToMove.GetComponent<Renderer>().bounds.size.x / 2;
+			halfObjectHeight = objectToMove.GetComponent<Renderer>().bounds.size.y / 2;
 		} else {
 			halfObjectWidth = objectWidth / 2;
 			halfObjectHeight = objectHeight / 2;

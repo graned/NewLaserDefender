@@ -35,7 +35,7 @@ public class LaserController : MonoBehaviour{
 	public void fireLaser(){
 		//Debug.Log("FIRE THE \"LASER\"");
 		//movController.moveObject (0f, laserSpeed);
-		this.rigidbody2D.velocity = new Vector3(0f,laserSpeed,0f);
+		this.GetComponent<Rigidbody2D>().velocity = new Vector3(0f,laserSpeed,0f);
 	}
 	/*
 	 * THIS METHOD CAN BE USED TO CHANGE THE SPRITES TO THE EXPLITION
