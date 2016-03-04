@@ -195,6 +195,7 @@ public class EnemySpaceShip : MonoBehaviour {
 	}
 	public void destroyEnemySpaceShip(){
 		Destroy (gameObject);
+		//TODO: propagate a notification that the spaceship has been destroyed
 	}
 
 
