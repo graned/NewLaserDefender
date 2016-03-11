@@ -4,14 +4,14 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour {
 	private Sprite[] spriteToLoad;
+	private int numberOfEnemies;
+
 	public GameObject enemyPrefab;
-	//public GameObject enemyFormation;
 	public float width = 10f, height = 5f;
-	//private MovementController movController;
 	public float movementSpeed = 15f;
 	public float enemyLevel = 1;
-	private int numberOfEnemies;
-	
+	public float spawnDelay = 0.5f;
+
 	private EnemySpaceShip enemySpaceShip;
 	// Use this for initialization
 	void Start () {
@@ -21,7 +21,8 @@ public class EnemySpawner : MonoBehaviour {
 
 		//BY CALLING THE TRANSFORM VARIABLE OF THE ENEMYSPAWNER OBJECT, IT RETRIEVES ALL THE CHILDS IN THE ENEMYSPAWNER
 		//IN THIS CASE ALL THE "POSITION" INSTANCES
-		spawnEnemies (transform);
+		spawnEnemies ();
+		//numberOfEnemies = transform.childCount;
 
 	}
 
@@ -40,47 +41,18 @@ public class EnemySpawner : MonoBehaviour {
 	/*
 	 * THIS METHOD SPAWNS ALL THE ENEMIES BASED ON A POSITION
 	 */
-	private void spawnEnemies(Transform trans){
-		foreach (Transform t in trans) {
-			//this line creates a new isntance of the game object enemyPrefab, which is initialized from the UI
-			GameObject enemy = Instantiate (this.enemyPrefab, t.position, Quaternion.identity) as GameObject;//enemySpaceShip.createNewEnemy(t);
-
-			//THIS LINE GETS THE INSTANCE OF THE ENEMY SPACESHIP CREATED
-			enemySpaceShip = enemy.GetComponent<EnemySpaceShip>();
-
-			//WE SET THE PREFAB GAME OBJECT THAT WILL BE USED
-			//enemySpaceShip.EnemyPrefab = enemySpaceShip.gameObject;
-			//setting the enemy space ship movement speed
-			enemySpaceShip.movementSpeed = movementSpeed;
-
-			//assignes the new instance created a parent
-			enemy.transform.parent = t;
-
-			//gets the position game object were the spaceship si being created
-			Position p = t.GetComponent<Position>();
-
-			//set the radius, so we can draw the gizmos on each enemy space ship
-			enemySpaceShip.Radius = p.radius;
-
-			//TEMPORARY FOR LEVEL 1
-			//Debug.Log(enemySpaceShip.SpriteToLoad);
-			//enemySpaceShip.changeSprite(4);
-			float spriteIndex = Random.Range(1.0f,enemyLevel * 5.0f);
-
-			//this helps determining which enemy is, also helps on the collider assignation, not max inclusive for int
-			enemySpaceShip.EnemyType = getSpaceshipType((int)spriteIndex); 
-
-			//this line changes the enemy sprite to the one that belongs to the current level
-			changeSprite(enemySpaceShip.gameObject,spriteToLoad[(int)spriteIndex - 1]);
-
-			//enemySpaceShip.fireRepeatRate = 0.02f * enemyLevel;
-			enemySpaceShip.ShotsPerSecond = enemyLevel;
-
+	private void spawnEnemies(){
+		//using recursion
+		Transform nextFreeTransform = nextFreePosition(transform);
+		if (nextFreeTransform) {
+			numberOfEnemies++;
+			spawnEnemy (nextFreeTransform);
+			Invoke ("spawnEnemies", spawnDelay);
 		}
+	}
 
-		// sets number of enemies
-		numberOfEnemies = trans.childCount;
-		Debug.Log ("number of enemies: " + trans.childCount);
+	public void enemyGotDestroyNotifier(){
+		this.numberOfEnemies--;
 	}
 
 	private int getSpaceshipType(int type){
@@ -95,6 +67,52 @@ public class EnemySpawner : MonoBehaviour {
 		//check if there are no more enemies
 		if(numberOfEnemies <= 0){
 			Debug.Log ("NO MORE ENEMIES LEFT!");
+			spawnEnemies ();
 		}
+	}
+
+	private Transform nextFreePosition(Transform transform){
+		foreach (Transform nextTransform in transform) {
+			if (nextTransform.childCount <= 0) {
+				return nextTransform;
+			}
+		}
+		return null;
+	}
+
+	private void spawnEnemy(Transform transform){
+		//this line creates a new isntance of the game object enemyPrefab, which is initialized from the UI
+		GameObject enemy = Instantiate (this.enemyPrefab, transform.position, Quaternion.identity) as GameObject;//enemySpaceShip.createNewEnemy(t);
+
+		//THIS LINE GETS THE INSTANCE OF THE ENEMY SPACESHIP CREATED
+		enemySpaceShip = enemy.GetComponent<EnemySpaceShip>();
+
+		//WE SET THE PREFAB GAME OBJECT THAT WILL BE USED
+		//enemySpaceShip.EnemyPrefab = enemySpaceShip.gameObject;
+		//setting the enemy space ship movement speed
+		enemySpaceShip.movementSpeed = movementSpeed;
+
+		//assignes the new instance created a parent
+		enemy.transform.parent = transform;
+
+		//gets the position game object were the spaceship si being created
+		Position p = transform.GetComponent<Position>();
+
+		//set the radius, so we can draw the gizmos on each enemy space ship
+		enemySpaceShip.Radius = p.radius;
+
+		//TEMPORARY FOR LEVEL 1
+		//Debug.Log(enemySpaceShip.SpriteToLoad);
+		//enemySpaceShip.changeSprite(4);
+		float spriteIndex = Random.Range(1.0f,enemyLevel * 5.0f);
+
+		//this helps determining which enemy is, also helps on the collider assignation, not max inclusive for int
+		enemySpaceShip.EnemyType = getSpaceshipType((int)spriteIndex); 
+
+		//this line changes the enemy sprite to the one that belongs to the current level
+		changeSprite(enemySpaceShip.gameObject,spriteToLoad[(int)spriteIndex - 1]);
+
+		//enemySpaceShip.fireRepeatRate = 0.02f * enemyLevel;
+		enemySpaceShip.ShotsPerSecond = enemyLevel;
 	}
 }

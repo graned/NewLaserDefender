@@ -38,7 +38,7 @@ public class LaserController : MonoBehaviour{
 		this.GetComponent<Rigidbody2D>().velocity = new Vector3(0f,laserSpeed,0f);
 	}
 	/*
-	 * THIS METHOD CAN BE USED TO CHANGE THE SPRITES TO THE EXPLITION
+	 * THIS METHOD CAN BE USED TO CHANGE THE SPRITES TO THE EXPLOTION
 	 */
 	void OnTriggerEnter2D(Collider2D collider){
 		//Debug.Log ("LASER HIT BITCH!");
