@@ -30,7 +30,7 @@ RenderSettings:
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
-  m_SpotCookie: {fileID: 0}
+  m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
@@ -547,11 +547,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 163984, guid: 625e87a231e856049943340f3fdac51c, type: 2}
-  enemyFormation: {fileID: 1512712798}
   width: 10
   height: 6
   movementSpeed: 5
-  enemyLevel: 1
+  enemyLevel: 5
+  spawnDelay: 0.5
 --- !u!4 &1512712800
 Transform:
   m_ObjectHideFlags: 0

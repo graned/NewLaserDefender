@@ -15,7 +15,7 @@ public class EnemyColliderController : MonoBehaviour {
 	}
 	void OnTriggerEnter2D(Collider2D collider){
 		LaserController laser = collider.gameObject.GetComponent<LaserController> ();
-
+		//EnemySpaceShip enemySpaceShip = collider.gameObject.GetComponent<EnemySpaceShip> ();
 		if (laser){
 			//Debug.Log(laser.LaserOrign);
 			if(laser.LaserOrign.Equals("PLAYER_LASER")){
@@ -25,7 +25,6 @@ public class EnemyColliderController : MonoBehaviour {
 				enemySpaceShip.Health -= laser.getLaserDamage();
 				if(enemySpaceShip.Health <= 0){
 					//IF THE HEALTH IS 0 OR LESS THAN CERO THEN DESTROY THE ENEMYSPACESHIP OBJECT
-
 					enemySpawner.enemyGotDestroyNotifier ();
 					//enemySpawner.nextFreePosition (enemySpaceShip);
 					enemySpaceShip.destroyEnemySpaceShip();

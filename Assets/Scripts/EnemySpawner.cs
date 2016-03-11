@@ -44,6 +44,7 @@ public class EnemySpawner : MonoBehaviour {
 	private void spawnEnemies(){
 		//using recursion
 		Transform nextFreeTransform = nextFreePosition(transform);
+		//check if there is not gameobject of type enemySpaceShip at position nextFreeTransform
 		if (nextFreeTransform) {
 			numberOfEnemies++;
 			spawnEnemy (nextFreeTransform);
@@ -87,10 +88,21 @@ public class EnemySpawner : MonoBehaviour {
 		//THIS LINE GETS THE INSTANCE OF THE ENEMY SPACESHIP CREATED
 		enemySpaceShip = enemy.GetComponent<EnemySpaceShip>();
 
-		//WE SET THE PREFAB GAME OBJECT THAT WILL BE USED
-		//enemySpaceShip.EnemyPrefab = enemySpaceShip.gameObject;
+		//DETERMINES WHICH LEVEL WILL THE SPAWN SPACESHIP WILL BE
+		int enemySpaceShipSpawnLevel = (int)Random.Range(1.0f,enemyLevel);
+
+		//SELECTS WHICH SPRITE WILL RENDER BASED ON THE ENEMY SPAWN LEVEL
+		float spriteIndex = Random.Range(1.0f,enemySpaceShipSpawnLevel * 5.0f);
+
 		//setting the enemy space ship movement speed
-		enemySpaceShip.movementSpeed = movementSpeed;
+		//adding random movement based on the level to try to avoid overlapping
+		enemySpaceShip.movementSpeed = Random.Range(spriteIndex,movementSpeed);
+
+		//firerate of the space ship
+		enemySpaceShip.ShotsPerSecond = enemySpaceShipSpawnLevel;
+
+		//this helps determining the type enemy is, also helps on the collider assignation, not max inclusive for int
+		enemySpaceShip.EnemyType = getSpaceshipType((int)spriteIndex); 
 
 		//assignes the new instance created a parent
 		enemy.transform.parent = transform;
@@ -101,18 +113,8 @@ public class EnemySpawner : MonoBehaviour {
 		//set the radius, so we can draw the gizmos on each enemy space ship
 		enemySpaceShip.Radius = p.radius;
 
-		//TEMPORARY FOR LEVEL 1
-		//Debug.Log(enemySpaceShip.SpriteToLoad);
-		//enemySpaceShip.changeSprite(4);
-		float spriteIndex = Random.Range(1.0f,enemyLevel * 5.0f);
-
-		//this helps determining which enemy is, also helps on the collider assignation, not max inclusive for int
-		enemySpaceShip.EnemyType = getSpaceshipType((int)spriteIndex); 
-
 		//this line changes the enemy sprite to the one that belongs to the current level
 		changeSprite(enemySpaceShip.gameObject,spriteToLoad[(int)spriteIndex - 1]);
 
-		//enemySpaceShip.fireRepeatRate = 0.02f * enemyLevel;
-		enemySpaceShip.ShotsPerSecond = enemyLevel;
 	}
 }
