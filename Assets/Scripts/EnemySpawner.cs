@@ -42,13 +42,15 @@ public class EnemySpawner : MonoBehaviour {
 	 * THIS METHOD SPAWNS ALL THE ENEMIES BASED ON A POSITION
 	 */
 	private void spawnEnemies(){
+		//execute only 6 times or the number of enemies allowed in the game screen
 		//using recursion
 		Transform nextFreeTransform = nextFreePosition(transform);
 		//check if there is not gameobject of type enemySpaceShip at position nextFreeTransform
 		if (nextFreeTransform) {
 			numberOfEnemies++;
 			spawnEnemy (nextFreeTransform);
-			Invoke ("spawnEnemies", spawnDelay);
+			//if(numberOfEnemies < 2)
+				Invoke ("spawnEnemies", spawnDelay);
 		}
 	}
 

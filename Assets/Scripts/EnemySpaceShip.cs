@@ -12,9 +12,10 @@ public class EnemySpaceShip : MonoBehaviour {
 	private int enemyType;
 	private Transform parentTransform;
 	private GameObject laserObject;
-	public float fireRepeatRate;
+//	public float fireRepeatRate;
 	private float health;
-	private float shotsPerSecond;
+	public float shotsPerSecond;//TODO: change to private when animation testing is done
+	private Animator animator;
 	/**
 	 * *********************************************************************
 	 * PROPERTIES
@@ -46,14 +47,14 @@ public class EnemySpaceShip : MonoBehaviour {
 		}
 	}
 
-	public float FireRepeatRate {
-		get {
-			return fireRepeatRate;
-		}
-		set {
-			fireRepeatRate = value;
-		}
-	}
+//	public float FireRepeatRate {
+//		get {
+//			return fireRepeatRate;
+//		}
+//		set {
+//			fireRepeatRate = value;
+//		}
+//	}
 
 	public MovementController MovController {
 		get {
@@ -148,8 +149,11 @@ public class EnemySpaceShip : MonoBehaviour {
 		movController.MovementSpeed = this.movementSpeed;
 		movController.ObjectToMoveCurrentPosition = this.transform.position;
 		movController.defineWorldBounds (Camera.main);
+		animator = this.gameObject.GetComponent<Animator> ();
 		//adds a collider to the current spaceship game object created
 		addCustomCollider (enemyType);
+
+
 
 	}
 
@@ -175,16 +179,28 @@ public class EnemySpaceShip : MonoBehaviour {
 		return movementOrientation * -1;
 	}
 	void Update () {
-		if (Mathf.Round(this.transform.position.x) <= Mathf.Round(movController.CameraMinBoundX) &&
-		    movController.MovementSpeed < 0){
-				movController.MovementSpeed = changeMovementOrientation(movController.MovementSpeed);
-		}else if(Mathf.Round(this.transform.position.x) >= Mathf.Round(movController.CameraMaxBoundX) 
-		         && movController.MovementSpeed >= 0){
-			movController.MovementSpeed = changeMovementOrientation(movController.MovementSpeed);
+		if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
+			animator.applyRootMotion=true;
 
+//			if(!this.transform.position.Equals(this.transform.parent.position)){
+//				Debug.Log ("game object x: " + this.transform.parent.position.x);
+//				Debug.Log ("animator x: " + animator.transform.position.x);
+//
+//			}
+
+			//this.transform.position = new Vector2(this.transform.parent.position.x, this.transform.parent.position.y);
+
+			if (Mathf.Round(this.transform.position.x) <= Mathf.Round(movController.CameraMinBoundX) &&
+				movController.MovementSpeed < 0){
+				movController.MovementSpeed = changeMovementOrientation(movController.MovementSpeed);
+			}else if(Mathf.Round(this.transform.position.x) >= Mathf.Round(movController.CameraMaxBoundX) 
+				&& movController.MovementSpeed >= 0){
+				movController.MovementSpeed = changeMovementOrientation(movController.MovementSpeed);
+
+			}
+			movController.moveObject (movController.MovementSpeed, 0f);
+			fireLaser ();
 		}
-		movController.moveObject (movController.MovementSpeed, 0f);
-		fireLaser ();
 	}
 
 	public void fireLaser(){
