@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour {
 		//BY CALLING THE TRANSFORM VARIABLE OF THE ENEMYSPAWNER OBJECT, IT RETRIEVES ALL THE CHILDS IN THE ENEMYSPAWNER
 		//IN THIS CASE ALL THE "POSITION" INSTANCES
 		spawnEnemies ();
-		//numberOfEnemies = transform.childCount;
+		numberOfEnemies = transform.childCount;
 
 	}
 
@@ -49,7 +49,7 @@ public class EnemySpawner : MonoBehaviour {
 		if (nextFreeTransform) {
 			numberOfEnemies++;
 			spawnEnemy (nextFreeTransform);
-			//if(numberOfEnemies < 2)
+			//if(numberOfEnemies <= 6)
 				Invoke ("spawnEnemies", spawnDelay);
 		}
 	}

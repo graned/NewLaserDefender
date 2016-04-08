@@ -167,12 +167,7 @@ public class EnemySpaceShip : MonoBehaviour {
 		//THE RECENTLY CREATED COLLIDER WILL HAVE AS PARENT THE ENEMY SPACESHIP OBJECT
 		enemyCollider.transform.parent = this.transform;
 	}
-
-	/*//THIS METHOD CHANGES THE ENEMY SPRITE WHEN SPAWING!
-	private void changeSprite(Sprite sprite){
-		this.GetComponent<SpriteRenderer> ().sprite = sprite;
-	}
-	*/
+		
 	
 	// Update is called once per frame
 	private float changeMovementOrientation(float movementOrientation){
@@ -182,13 +177,7 @@ public class EnemySpaceShip : MonoBehaviour {
 		if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle")) {
 			animator.applyRootMotion=true;
 
-//			if(!this.transform.position.Equals(this.transform.parent.position)){
-//				Debug.Log ("game object x: " + this.transform.parent.position.x);
-//				Debug.Log ("animator x: " + animator.transform.position.x);
-//
-//			}
-
-			//this.transform.position = new Vector2(this.transform.parent.position.x, this.transform.parent.position.y);
+			movController.ObjectToMoveCurrentPosition = this.transform.position;
 
 			if (Mathf.Round(this.transform.position.x) <= Mathf.Round(movController.CameraMinBoundX) &&
 				movController.MovementSpeed < 0){
@@ -221,22 +210,13 @@ public class EnemySpaceShip : MonoBehaviour {
 	 */
 	private void spawnLaser(Transform transParent){
 
-		//foreach(Transform t in transParent){
 		//this line creates a new isntance of the game object enemyPrefab, which is initialized from the UI
 		Vector3 position = transParent.transform.position;
 		position.z = 1;
-		//GameObject laser = Instantiate (laserPrefab, position, Quaternion.identity) as GameObject;
-		//NO NEED TO ESTABLISH A PARENT FOR THE BEAM!.
 		//adds laser object to the spaceship
 		laserObject = Instantiate (Resources.Load ("Enemy/Prefab/enemyLaserBeam"),position, Quaternion.identity) as GameObject;
 		LaserController laser = laserObject.GetComponent<LaserController> ();
 		laser.laserSpeed = laser.laserSpeed * -1;
 		laser.LaserOrign = "ENEMY_LASER";
-
-		//Instantiate (laserObject, position, Quaternion.identity);
-		//assignes the new instance created a parent
-		//laser.transform.parent = laserContainer.transform;
-		
-		//}
 	}
 }
