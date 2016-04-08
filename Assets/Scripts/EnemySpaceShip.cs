@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class EnemySpaceShip : MonoBehaviour {	
-	//private GameObject enemyPrefab;
 	private float width, height;
 	private MovementController movController;
 	public float movementSpeed;
@@ -12,11 +11,11 @@ public class EnemySpaceShip : MonoBehaviour {
 	private int enemyType;
 	private Transform parentTransform;
 	private GameObject laserObject;
-//	public float fireRepeatRate;
 	private float health;
 	public float shotsPerSecond;//TODO: change to private when animation testing is done
 	private Animator animator;
 	private int enemyValue;
+	public AudioClip laserAudioClip;
 	/**
 	 * *********************************************************************
 	 * PROPERTIES
@@ -39,6 +38,15 @@ public class EnemySpaceShip : MonoBehaviour {
 		}
 	}
 
+	public AudioClip LaserAudioClip {
+		get {
+			return laserAudioClip;
+		}
+		set {
+			laserAudioClip = value;
+		}
+	}
+
 	public float ShotsPerSecond {
 		get {
 			return shotsPerSecond;
@@ -56,15 +64,6 @@ public class EnemySpaceShip : MonoBehaviour {
 			health = value;
 		}
 	}
-
-//	public float FireRepeatRate {
-//		get {
-//			return fireRepeatRate;
-//		}
-//		set {
-//			fireRepeatRate = value;
-//		}
-//	}
 
 	public MovementController MovController {
 		get {
@@ -128,15 +127,6 @@ public class EnemySpaceShip : MonoBehaviour {
 			width = value;
 		}
 	}
-	/*
-	public GameObject EnemyPrefab {
-		get {
-			return enemyPrefab;
-		}
-		set {
-			enemyPrefab = value;
-		}
-	}*/
 	/**
 	 * PROPERTIES END
 	 * *****************************************************************************
@@ -144,7 +134,6 @@ public class EnemySpaceShip : MonoBehaviour {
 
 	//THIS METHOD DRAWS A SPHERE IN A POSITION
 	void OnDrawGizmos(){
-		//vector3 = transform.position;
 		Gizmos.DrawWireSphere (transform.position, radius);
 	}
 	// Use this for initialization
@@ -161,6 +150,8 @@ public class EnemySpaceShip : MonoBehaviour {
 		if (enemyValue == 0) {
 			throw new UnityException ("Enemy must contain a value");
 		}
+
+		laserAudioClip = Resources.Load<AudioClip> ("Sounds/sfx_laser2");
 	}
 
 	private void addCustomCollider(int enemyType){
@@ -202,6 +193,7 @@ public class EnemySpaceShip : MonoBehaviour {
 		float fireProbability = Time.deltaTime * shotsPerSecond;
 		if (Random.value < fireProbability) {
 			spawnLaser (transform);
+			AudioSource.PlayClipAtPoint (LaserAudioClip, transform.position);
 		}
 	}
 	public void destroyEnemySpaceShip(){

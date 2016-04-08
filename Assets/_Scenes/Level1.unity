@@ -3923,7 +3923,7 @@ MonoBehaviour:
   width: 10
   height: 6
   movementSpeed: 5
-  enemyLevel: 5
+  enemyLevel: 1
   spawnDelay: 0.5
 --- !u!4 &1512712800
 Transform:
@@ -4055,7 +4055,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 441436, guid: 6e089850f996347528275546cac03a53, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.1
+      value: 0.83
       objectReference: {fileID: 0}
     - target: {fileID: 441436, guid: 6e089850f996347528275546cac03a53, type: 2}
       propertyPath: m_LocalPosition.z
@@ -4079,7 +4079,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 441436, guid: 6e089850f996347528275546cac03a53, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11441436, guid: 6e089850f996347528275546cac03a53, type: 2}
       propertyPath: laserPrefab
@@ -4093,6 +4093,10 @@ Prefab:
       propertyPath: movementSpeed
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 11441436, guid: 6e089850f996347528275546cac03a53, type: 2}
+      propertyPath: laserAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4027bc04713044321b1292fbd3daca32, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6e089850f996347528275546cac03a53, type: 2}
   m_IsPrefabParent: 0
