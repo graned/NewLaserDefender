@@ -16,6 +16,7 @@ public class EnemySpaceShip : MonoBehaviour {
 	private float health;
 	public float shotsPerSecond;//TODO: change to private when animation testing is done
 	private Animator animator;
+	private int enemyValue;
 	/**
 	 * *********************************************************************
 	 * PROPERTIES
@@ -26,6 +27,15 @@ public class EnemySpaceShip : MonoBehaviour {
 		}
 		set {
 			parentTransform = value;
+		}
+	}
+
+	public int EnemyValue {
+		get {
+			return enemyValue;
+		}
+		set {
+			enemyValue = value;
 		}
 	}
 
@@ -139,22 +149,18 @@ public class EnemySpaceShip : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
-		//default values for prefab attribute which helps determing which game object will need to be manipulated by the 
-		//movement controller class
-		//if (enemyPrefab == null) {
-			//enemyPrefab = Instantiate (Resources.Load ("Enemy/Prefab/Enemy")) as GameObject//GameObject.Instantiate(Resources.LoadAssetAtPath("./Entities/Enemies/Enemy", typeof(GameObject)) ) as GameObject;
-		//}
 		//MOVEMENT CONTROLLER
 		movController = new MovementController (this.gameObject);
 		movController.MovementSpeed = this.movementSpeed;
 		movController.ObjectToMoveCurrentPosition = this.transform.position;
 		movController.defineWorldBounds (Camera.main);
 		animator = this.gameObject.GetComponent<Animator> ();
+
 		//adds a collider to the current spaceship game object created
 		addCustomCollider (enemyType);
-
-
-
+		if (enemyValue == 0) {
+			throw new UnityException ("Enemy must contain a value");
+		}
 	}
 
 	private void addCustomCollider(int enemyType){

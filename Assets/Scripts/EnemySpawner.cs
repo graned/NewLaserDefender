@@ -118,5 +118,8 @@ public class EnemySpawner : MonoBehaviour {
 		//this line changes the enemy sprite to the one that belongs to the current level
 		changeSprite(enemySpaceShip.gameObject,spriteToLoad[(int)spriteIndex - 1]);
 
+		//sets the enemy value based on level and type of spaceShip
+		enemySpaceShip.EnemyValue = enemySpaceShipSpawnLevel * (int)spriteIndex * 100;
+
 	}
 }
