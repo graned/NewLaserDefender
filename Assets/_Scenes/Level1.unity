@@ -2341,7 +2341,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startSpeed:
-      scalar: 4
+      scalar: 10
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -3923,7 +3923,7 @@ MonoBehaviour:
   width: 10
   height: 6
   movementSpeed: 5
-  enemyLevel: 1
+  enemyLevel: 5
   spawnDelay: 0.5
 --- !u!4 &1512712800
 Transform:
